@@ -20,7 +20,7 @@ In this heuristic, the losses of the cutting process are concentrated on the sma
 
 ## Example
 ```python
-import heuristictree as ht
+from heuristictree import tree as ht
 
 n = 7
 L = 30
