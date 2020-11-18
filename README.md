@@ -8,7 +8,7 @@ You need Python 3.8 or later to use **heuristictree**. You can find it at [pytho
 #### Installation
 Clone this repo to your local machine using:
 ```
-git clone https://github.com/omatheuspimenta/heuristictree
+git clone https://github.com/omatheuspimenta/heuristictree.git
 ```
 or
 ```p
