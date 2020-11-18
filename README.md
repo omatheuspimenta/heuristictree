@@ -17,3 +17,18 @@ git clone https://github.com/caiocarneloz/pacotepypi.git
 - File structure for PyPI packages
 - Setup with package informations
 - License example
+
+## Example
+```
+import heuristictree as ht
+
+n = 7
+L = 30
+l = [7, 9, 11, 14, 19, 21, 26]
+d = [2, 3, 2, 2, 2, 1, 1]
+
+left = loss = bar = 0
+x = []
+
+left,loss,bar,x = ht.tree(L=L, n=n, l=l, d=d)
+```

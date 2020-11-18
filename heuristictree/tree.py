@@ -1,73 +1,11 @@
-import sys
-import os
-import fnmatch
-from time import process_time
-sys.setrecursionlimit(20000)
+import quick_tree as qt
 
-def tree(fin,fout):
-    arq = open(fin,"r")
-    out = open(fout,"a+")
+def tree(L,n,l,d):
+    x_ret = []
+    n = len(d)
     
-    ## ORDENANDO POR ORDEM DECRESCENTE
-    def partition(arr,seg,low,high): 
-        i = ( low-1 )         # index of smaller element 
-        pivot = arr[high]     # pivot 
-      
-        for j in range(low , high): 
-            # If current element is smaller than or 
-            # equal to pivot 
-            if   arr[j] >= pivot: 
-                # increment index of smaller element 
-                i = i+1 
-                arr[i],arr[j] = arr[j],arr[i] 
-                seg[i],seg[j] = seg[j],seg[i]
-      
-        arr[i+1],arr[high] = arr[high],arr[i+1]
-        seg[i+1],seg[high] = seg[high],seg[i+1]
-        return ( i+1 ) 
+    qt.quickSort(l,d,0,n-1)
     
-    def quickSort(arr,seg,low,high): 
-        if low < high: 
-            # pi is partitioning index, arr[p] is now 
-            # at right place 
-            pi = partition(arr, seg,low,high) 
-            
-            # Separately sort elements before 
-            # partition and after partition 
-            quickSort(arr, seg, low, pi-1) 
-            quickSort(arr, seg, pi+1, high) 
-    
-    ## CARREGANDO O ARQUIVO
-    l = []
-    d = []
-    
-    for line in arq:
-        if(line[0] == "L" and line[1] == ":"):
-            L = int(line[2:20])
-        if(line[0] == "n" and line[1] == ":"):
-            n = int(line[2:20])
-        if(line[0] == "l" and line[1] == ":"):
-            aux = line.split(" ")
-            j = 1
-            while(j < len(aux)):
-                l.append(int(aux[j]))
-                j += 1
-        if(line[0] == "d" and line[1] == ":"):
-            aux = line.split(" ")
-            j = 1
-            while(j < len(aux)):
-                d.append(int(aux[j]))
-                j += 1
-    arq.close()
-    ## FIM DO CARREGAMENTO DO ARQUIVO
-    
-    ## START TIME
-    start_time = process_time()
-    
-    quickSort(l,d,0,n-1)
-    
-    ## UNINDO VALORES IGUAIS PARA DIMINUIR O TAMANHO DO VETOR
-    ### MEXER
     i=0
     while i<(n-1):
         if l[i]==l[i+1]:
@@ -148,7 +86,7 @@ def tree(fin,fout):
                 L_hat = L_aux
                 x = x_aux
             cont = cont + 1
-                
+        x_ret.append(x)
         sum_x = 0    
     
         for i in range(n):
@@ -175,31 +113,4 @@ def tree(fin,fout):
             
         soma = soma - sum_x
         bar += 1
-    
-    # END TIME
-    end_time = process_time()
-    ex_time = end_time - start_time
-    
-    ##WRITE IN FILE
-    out.write(file)
-    out.write("\n")
-    out.write("leftover;")
-    out.write(str(leftover))
-    out.write("\n")
-    out.write("loss;")
-    out.write(str(loss))
-    out.write("\n")
-    out.write("bar;")
-    out.write(str(bar))
-    out.write("\n")
-    out.write("time;")
-    out.write(str(ex_time))
-    out.write("\n")
-    out.close()
-
-
-for file in os.listdir('.'):
-    if fnmatch.fnmatch(file, '*.dat'):
-        print("Loading...",file)
-        aux = 'PPL_tree.txt'
-        tree(file,aux)    
+    return(leftover, loss, bar-1, x_ret)
