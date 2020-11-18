@@ -1,11 +1,18 @@
 import quick_tree as qt
 
-def tree(L,n,l,d):
-    x_ret = []
+def tree(L,n,l,d,smallitem = 0):
+    #Initial Parameters
     n = len(d)
+    soma = small = leftover = loss = 0
+    L_hat = L
+    bar = 0
+    x_ret = []
+    smallitem = smallitem
     
+    #Sorting
     qt.quickSort(l,d,0,n-1)
     
+    #Put together items of the same size
     i=0
     while i<(n-1):
         if l[i]==l[i+1]:
@@ -17,54 +24,50 @@ def tree(L,n,l,d):
             i=i+1
         if i==n:
             break
-    n=len(d)
+    n=len(d)  
     
-    ## START HEURISTIC
-    soma = small = leftover = loss = 0
-    L_hat = L
-    bar = 0
-    
-    #SUM OF DEMAND ITEMS
+    #Sum of Demand Items
     for i in range(n):
         soma = soma + d[i]
     
-    ##DEFINI COMO VALOR DE PERDA OU SOBRA O MENOR ITEM
-    small_ = l[n-1]
+    #small item
+    if smallitem == 0:
+        small_ = l[n-1]
+    else:
+        small_ = smallitem
     
-    ##INICIO DA HEURISTICA
+    print("small_",small_)
+    #Begin
     while (soma > 0 ):
-        x_ini = [0]*n               # iniciando os vetores (talvez possa diminuir um vetor)
+        x_ini = [0]*n
         x = [0]*n
         x_aux = [0]*n
         x_fix = [0]*n
-        for i in range(n-1,-1,-1):  # definindo quem é o menor item ativo da barra
-            if(l[i] != -1):
-                small = l[i]
-                break
-        
-        for i in range(n):          # primeiro ramo da arvore
+        small = l[n-1]
+        #First branch
+        for i in range(n):
             y = int(L_hat/l[i])
             if(y > d[i]):
                 y = d[i]
             x_ini[i] = y
             L_hat = L_hat - (x_ini[i] * l[i])
             if((L_hat < small) or L_hat == 0):  
-                break           # CONDIÇÃO DE PARADA DO PRIMEIRO RAMO
+                break
         cont = 1
         L_aux = L
-        x_aux[0] = x_ini[0]         # PASSO SOMENTE O PRIMEIRO VALOR PARA O NOVO RAMO
-        x = x_ini                   # guardo para o caso de ser a melhor solucao ate o momento
-        while((L_aux != 0) and (cont != n )):   #condicoes de parada ou sobra nula ou final da arvore
+        x_aux[0] = x_ini[0]
+        x = x_ini
+        while((L_aux != 0) and (cont != n )):
             x_fix = [0]*n
-            ra = -1                 # VALOR DO INDICE CASO OCORRA SOBRA == VALOR EXISTENTE
+            ra = -1                 
             if(x_aux[cont-1] != 0):
-                x_fix[cont-1] = x_aux[cont-1] - 1   # REMOVENDO UMA UNIDADE DO MAIOR ITEM DO RAMO ANTERIOR
+                x_fix[cont-1] = x_aux[cont-1] - 1   
             else:
-                x_fix[cont-1] = 0           # NÃO REMOVER CASO JA SEJA 0
-            L_fix = L - (l[cont-1]*x_fix[cont-1]) # liberar espaço na mochila
+                x_fix[cont-1] = 0           
+            L_fix = L - (l[cont-1]*x_fix[cont-1]) 
             L_aux = L_fix
             x_aux = x_fix
-            for j in range(cont,n):     # criacao dos outros ramos
+            for j in range(cont,n):
                 if(l[j] != -1):
                     y = int(L_aux/l[j])
                     if(y > d[j]):
@@ -72,7 +75,7 @@ def tree(L,n,l,d):
                     x_aux[j] = y
                     L_aux -= (x_aux[j] * l[j])
                     if(L_aux > l[cont]):
-                        if(L_aux in l[0:cont]): # se a sobra for igual a algum item anterior colocar esse item
+                        if(L_aux in l[0:cont]):
                             ra = l.index(L_aux)
                             x_aux[ra] = 1
                             L_aux = 0
@@ -82,16 +85,18 @@ def tree(L,n,l,d):
                                     L_aux = (L_aux - l[ind])
                                     x_aux[ind] = 1
                                     break                                
-            if(L_aux < L_hat): # se a sobra é melhor que a menor sobra atual entao é a melhor solucao ate o momento
+            if(L_aux < L_hat):
                 L_hat = L_aux
                 x = x_aux
             cont = cont + 1
         x_ret.append(x)
+        
         sum_x = 0    
-    
         for i in range(n):
             sum_x = sum_x + x[i]
             d[i] = d[i] - x[i]
+        
+        #Remove null demands
         i = 0
         while i <= (n-1):
             if(d[i] == 0):
@@ -104,7 +109,8 @@ def tree(L,n,l,d):
                 break
         n = len(d) 
         
-        if(L_hat < small_): # determinando se é sobra ou perda
+        #Add Loss, Leftover and Bar
+        if(L_hat < small_): 
             loss += L_hat
             L_hat = L
         else:

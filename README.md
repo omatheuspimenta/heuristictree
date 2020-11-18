@@ -10,11 +10,16 @@ Clone this repo to your local machine using:
 ```
 git clone https://github.com/omatheuspimenta/heuristictree
 ```
+or
+```p
+pip install heuristictree
+```
+
 ## Features
-- Soon
+In this heuristic, the losses of the cutting process are concentrated on the smallest number of bars possible, using a tree structure, in order to become losses (unusable) into leftovers (usable). 
 
 ## Example
-```
+```python
 import heuristictree as ht
 
 n = 7
@@ -27,3 +32,26 @@ x = []
 
 left,loss,bar,x = ht.tree(L=L, n=n, l=l, d=d)
 ```
+## Input and Parameters
+* **L:** Size of bar to be cutting. _(int)_
+* **n:** Number of Items to be cutting. _(int)_
+* **l:** Lenght of items to be cutting. _(list)_
+* **d:** Demand of items to be cutting. _(list)_
+* **smallitem:** Size of small item. Default is the smallest item to be cutting. _(int)_
+
+## Output 
+* **left:** Leftover from the cutting process. _(int)_
+* **loss:** Loss from the cutting process. _(int)_
+* **bar:** Bar number used in the cutting process. _(int)_
+* **x:** Cutting pattern. _(list)_
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## Citation
+If you use this software in your work, please cite our paper. (soon)
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
