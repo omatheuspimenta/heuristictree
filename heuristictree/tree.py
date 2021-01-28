@@ -5,7 +5,7 @@ def tree(L,n,l,d,smallitem = 0):
     n = len(d)
     soma = small = leftover = loss = 0
     L_hat = L
-    bar = 0
+    bar = 1
     x_ret = []
     smallitem = smallitem
     
@@ -119,4 +119,4 @@ def tree(L,n,l,d,smallitem = 0):
             
         soma = soma - sum_x
         bar += 1
-    return(leftover, loss, bar-1, x_ret)
+    return(leftover, loss, bar, x_ret)
