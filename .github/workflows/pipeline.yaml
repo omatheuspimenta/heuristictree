@@ -1,0 +1,24 @@
+name: Pipeline
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Copy files
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12.0'
+      - name: Install dependencies - Poetry
+        run: |
+          pip install poetry
+          poetry install
+      - name: Run tests
+        run: |
+          poetry run task test --cov-report=xml
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
