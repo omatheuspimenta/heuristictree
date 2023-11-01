@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "heuristictree"
-version = "0.1.2"
+version = "1.0.2"
 description = "Heuristic Methods for Minimizing Cut Bars and Using Leftovers from the One-dimensional Cutting Process"
 authors = ["Matheus Pimenta <matheus.pimenta@outlook.com>"]
 readme = "README.md"
