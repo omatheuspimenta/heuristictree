@@ -5,10 +5,21 @@ description = "Heuristic Methods for Minimizing Cut Bars and Using Leftovers fro
 authors = ["Matheus Pimenta <matheus.pimenta@outlook.com>"]
 readme = "README.md"
 license = "MIT License"
+classifiers = [
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Natural Language :: English",
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.12",
+]
+
+[tool.poetry.urls]
+"Code" = "https://github.com/omatheuspimenta/heuristictree"
+"Bug Tracker" = "https://github.com/omatheuspimenta/heuristictree/issues"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-
 
 [tool.poetry.group.dev.dependencies]
 pytest-cov = "^4.1.0"

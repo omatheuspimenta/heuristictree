@@ -1,4 +1,7 @@
 # heuristictree
+[![codecov](https://codecov.io/gh/omatheuspimenta/heuristictree/graph/badge.svg?token=00D8TMX3EX)](https://codecov.io/gh/omatheuspimenta/heuristictree)
+[![CI](https://github.com/omatheuspimenta/heuristictree/actions/workflows/pipeline.yaml/badge.svg)](https://github.com/omatheuspimenta/heuristictree/actions/workflows/pipeline.yaml)
+
 Heuristic Methods for Minimizing Cut Bars and Using Leftovers from the One-dimensional Cutting Process - TREE Heuristic.
 
 ## Getting Started
