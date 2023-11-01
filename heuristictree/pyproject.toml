@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "heuristictree"
+version = "0.1.2"
+description = "Heuristic Methods for Minimizing Cut Bars and Using Leftovers from the One-dimensional Cutting Process"
+authors = ["Matheus Pimenta <matheus.pimenta@outlook.com>"]
+readme = "README.md"
+license = "MIT License"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest-cov = "^4.1.0"
+ruff = "^0.1.3"
+taskipy = "^1.12.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+pythonpath = "."
+addopts = "--doctest-modules"
+
+[tool.ruff]
+line-length = 88
+indent-width = 4
+
+[tool.ruff.format]
+quote-style = "double"
+line-ending = "auto"
+
+[tool.taskipy.tasks]
+lintchk = "ruff format --check ."
+lintcng = "ruff format ."
+pre_test = "task lintchk"
+test = "pytest -s -x --cov=heuristictree -vv"
+post_test = "coverage html"
