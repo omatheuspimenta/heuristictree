@@ -53,7 +53,25 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Citation
-If you use this software in your work, please cite our paper. (soon)
+If you use this software in your work, please cite our paper.
+> Bressan, G.M.; Pimenta-Zanon, M.H.; Sakuray, F. A Tree-Based Heuristic for the One-Dimensional Cutting Stock Problem Optimization Using Leftovers. Materials 2023, 16, 7133. https://doi.org/10.3390/ma16227133
+
+```bibtex
+@article{Bressan2023,
+  title = {A Tree-Based Heuristic for the One-Dimensional Cutting Stock Problem Optimization Using Leftovers},
+  volume = {16},
+  ISSN = {1996-1944},
+  url = {http://dx.doi.org/10.3390/ma16227133},
+  DOI = {10.3390/ma16227133},
+  number = {22},
+  journal = {Materials},
+  publisher = {MDPI AG},
+  author = {Bressan,  Glaucia Maria and Pimenta-Zanon,  Matheus Henrique and Sakuray,  Fabio},
+  year = {2023},
+  month = nov,
+  pages = {7133}
+}
+```
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
