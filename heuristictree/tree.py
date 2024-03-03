@@ -53,7 +53,7 @@ def tree(
     - This function optimizes cutting patterns by minimizing roll loss.
 
     Cite:
-    - Soon.
+    - Bressan, G.M.; Pimenta-Zanon, M.H.; Sakuray, F. A Tree-Based Heuristic for the One-Dimensional Cutting Stock Problem Optimization Using Leftovers. Materials 2023, 16, 7133. https://doi.org/10.3390/ma16227133
 
     """
     # Initial Parameters
@@ -90,7 +90,12 @@ def tree(
         small_ = l[-1]
 
     # Begin
+    with open("output.txt", "a") as file:
+        file.write("HEURISTIC TREE\n")
+
+    execution_number = 0
     while soma > 0:
+        execution_number += 1
         x_ini = [0] * n
         x = [0] * n
         x_aux = [0] * n
@@ -139,7 +144,13 @@ def tree(
                 L_hat = L_aux
                 x = x_aux
             cont += 1
+
         x_ret.append(x)
+        with open("output.txt", "a") as file:
+            file.write(f"Pattern {execution_number}\n")
+            for i in range(len(x)):
+                file.write(f"x: {x[i]} l: {l[i]}\n")
+            file.write("\n")
 
         sum_x = sum(x)
         d = [di - xi for di, xi in zip(d, x)]

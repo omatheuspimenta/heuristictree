@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "heuristictree"
-version = "1.0.2"
+version = "1.0.3"
 description = "Heuristic Methods for Minimizing Cut Bars and Using Leftovers from the One-dimensional Cutting Process"
 authors = ["Matheus Pimenta <matheus.pimenta@outlook.com>"]
 readme = "README.md"
@@ -18,8 +18,13 @@ classifiers = [
 "Code" = "https://github.com/omatheuspimenta/heuristictree"
 "Bug Tracker" = "https://github.com/omatheuspimenta/heuristictree/issues"
 
+[tool.poetry.scripts]
+heuristictree = "heuristictree.cli:app"
+
 [tool.poetry.dependencies]
 python = "^3.11"
+typer = "^0.9.0"
+rich = "^13.7.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest-cov = "^4.1.0"

@@ -9,11 +9,6 @@ Heuristic Methods for Minimizing Cut Bars and Using Leftovers from the One-dimen
 You need Python 3.8 or later to use **heuristictree**. You can find it at [python.org](https://www.python.org/).
 
 #### Installation
-Clone this repo to your local machine using:
-```
-git clone https://github.com/omatheuspimenta/heuristictree.git
-```
-or
 ```p
 pip install heuristictree
 ```
@@ -21,31 +16,32 @@ pip install heuristictree
 ## Features
 In this heuristic, the losses of the cutting process are concentrated on the smallest number of bars possible, using a tree structure, in order to become losses (unusable) into leftovers (usable). 
 
-## Example
-```python
-from heuristictree import tree as ht
-
-n = 7
-L = 30
-l = [7, 9, 11, 14, 19, 21, 26]
-d = [2, 3, 2, 2, 2, 1, 1]
-
-left = loss = bar = 0
-x = []
-
-left,loss,bar,x = ht.tree(L=L, n=n, l=l, d=d)
+Example file:
 ```
-## Input and Parameters
-* **L:** Size of bar to be cutting. _(int)_
-* **l:** Lenght of items to be cutting. _(list)_
-* **d:** Demand of items to be cutting. _(list)_
-* **smallitem:** Size of small item. Default is the smallest item to be cutting. _(int)_
+1188
+229	2
+208	1
+400	1
+327	3
+373	3
+182	3
+285	2
+88	1
+154	1
+83	3
+```
+First line represents the size of the bar to be cut.  
+The other lines represent the size of each item to be cut and the cutting demand, respectively.
+
+## Example
+```shell
+heuristictree run <your_file.txt>
+```
+
+
 
 ## Output 
-* **left:** Leftover from the cutting process. _(int)_
-* **loss:** Loss from the cutting process. _(int)_
-* **bar:** Bar number used in the cutting process. _(int)_
-* **x:** Cutting pattern. _(list)_
+The `output.txt` file contains the cutting patterns obtained from executing the `HeuristicTree`.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
