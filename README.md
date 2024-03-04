@@ -6,7 +6,7 @@ Heuristic Methods for Minimizing Cut Bars and Using Leftovers from the One-dimen
 
 ## Getting Started
 #### Dependencies
-You need Python 3.8 or later to use **heuristictree**. You can find it at [python.org](https://www.python.org/).
+You need Python 3.11 or later to use **heuristictree**. You can find it at [python.org](https://www.python.org/).
 
 #### Installation
 ```p
