@@ -91,7 +91,7 @@ def tree(
 
     # Begin
     with open("output.txt", "a") as file:
-        file.write("HEURISTIC TREE\n")
+        file.write("OptimizationTree\n")
 
     execution_number = 0
     while soma > 0:
