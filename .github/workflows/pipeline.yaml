@@ -1,18 +1,16 @@
 name: Pipeline
 
+# Runs only when a version tag (v1.2.3) is pushed, or manually from the
+# Actions tab. A tag push lints, tests, builds and publishes to PyPI.
 on:
   push:
-  pull_request:
+    tags: ["v*"]
   workflow_dispatch:
     inputs:
       benchmark:
-        description: "Run the v1 vs v2 benchmark on data/execution"
+        description: "Run the v1 vs current benchmark on data/execution"
         type: boolean
         default: false
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -58,8 +56,15 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: astral-sh/setup-uv@v6
-        with:
-          enable-cache: true
+      - name: Check that the tag matches the package version
+        if: github.ref_type == 'tag'
+        run: |
+          version=$(uv run --no-project python -c \
+            "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::tag $GITHUB_REF_NAME does not match pyproject version $version"
+            exit 1
+          fi
       - name: Build sdist and wheel
         run: uv build
       - name: Smoke-test the wheel
@@ -71,6 +76,23 @@ jobs:
         with:
           name: dist
           path: dist/
+
+  publish:
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: pypi
+      url: https://pypi.org/project/heuristictree/
+    permissions:
+      id-token: write # PyPI Trusted Publishing (no API token needed)
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
 
   benchmark:
     if: github.event_name == 'workflow_dispatch' && inputs.benchmark
